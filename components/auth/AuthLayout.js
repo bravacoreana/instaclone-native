@@ -30,12 +30,13 @@ export default function AuthLayout({ children }) {
     <TouchableWithoutFeedback
       style={{ flex: 1 }}
       onPress={() => dismissKeyboard()}
+      disabled={Platform.OS === "web"}
     >
       <Container>
         <KeyboardAvoidingView
           style={{ width: "100%" }}
           behavior="position"
-          keyboardVerticalOffset={Platform.OS === "ios" ? 200 : 0}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 0}
         >
           <Logo
             resizeMode="contain"

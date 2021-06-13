@@ -14,3 +14,8 @@ $ expo install react-native-appearance
     "userInterfaceStyle": "automatic",
  }
 ```
+
+# 14.14
+
+[reactnative.directory](https://reactnative.directory)
+$ expo install @react-native-async-storage/async-storage
