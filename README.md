@@ -1,3 +1,14 @@
+[reactnative.directory](https://reactnative.directory)
+[reactnavigation](https://reactnavigation.org/docs/getting-started)
+
+- tab navigation
+  $ npm install @react-navigation/bottom-tabs
+
+[Ionicons](https://icons.expo.fyi)
+[appearance](https://docs.expo.io/versions/latest/sdk/appearance/)
+
+$ expo install @react-native-async-storage/async-storage
+
 # 14.3 Dark Mode
 
 [appearance](https://docs.expo.io/versions/latest/sdk/appearance/)
@@ -16,6 +27,3 @@ $ expo install react-native-appearance
 ```
 
 # 14.14
-
-[reactnative.directory](https://reactnative.directory)
-$ expo install @react-native-async-storage/async-storage
