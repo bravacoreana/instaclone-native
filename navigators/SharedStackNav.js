@@ -5,7 +5,10 @@ import Search from "../screens/Search";
 import Notifications from "../screens/Notifications";
 import MyProfile from "../screens/MyProfile";
 import Profile from "../screens/Profile";
-import Photo from "../screens/Photo";
+import Photos from "../screens/Photos";
+import Likes from "../screens/Likes";
+import { Image } from "react-native";
+import Comments from "../screens/Comments";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +25,21 @@ export default function ({ screenName }) {
       }}
     >
       {screenName === "Feed" ? (
-        <Stack.Screen name="Feed" component={Feed} />
+        <Stack.Screen
+          name="Feed"
+          component={Feed}
+          options={{
+            headerTitle: () => (
+              <Image
+                style={{
+                  width: 150,
+                  height: 42,
+                }}
+                source={require("../assets/logo.png")}
+              />
+            ),
+          }}
+        />
       ) : null}
       {screenName === "Search" ? (
         <Stack.Screen name="Search" component={Search} />
@@ -34,7 +51,9 @@ export default function ({ screenName }) {
         <Stack.Screen name="MyProfile" component={MyProfile} />
       ) : null}
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="Photo" component={Photo} />
+      <Stack.Screen name="Photos" component={Photos} />
+      <Stack.Screen name="Likes" component={Likes} />
+      <Stack.Screen name="Comments" component={Comments} />
     </Stack.Navigator>
   );
 }
