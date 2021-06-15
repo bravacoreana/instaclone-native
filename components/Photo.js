@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components/native";
-import { Image, TouchableOpacity, useWindowDimensions } from "react-native";
+import {
+  Image,
+  TouchableOpacity,
+  useWindowDimensions,
+  Dimensions,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 // import { TouchableOpacity } from "react-native-gesture-handler";
@@ -17,10 +22,10 @@ const TOGGLE_LIKE_MUTATION = gql`
 `;
 
 const Container = styled.View`
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 `;
 const Header = styled.View`
-  padding: 10px;
+  padding: 5px;
   flex-direction: row;
   align-items: center;
 `;
@@ -34,7 +39,9 @@ const Username = styled.Text`
   color: white;
   font-weight: 600;
 `;
-const File = styled.Image``;
+const File = styled.Image`
+  aspect-ratio: 1.25;
+`;
 const Actions = styled.View`
   flex-direction: row;
   align-items: center;
@@ -62,13 +69,12 @@ const FeedContainer = styled.View`
 function Photo({ id, user, caption, file, isLiked, likes }) {
   const navigation = useNavigation();
   const { width, height, scale } = useWindowDimensions();
-  const [imageHeight, setImageHeight] = useState(height - 400);
-
-  useEffect(() => {
-    Image.getSize(file, (width, height) => {
-      setImageHeight(height / 7);
-    });
-  }, [file]);
+  // const [imageHeight, setImageHeight] = useState(height - 400);
+  // useEffect(() => {
+  //   Image.getSize(file, (width, height) => {
+  //     setImageHeight(height / 3);
+  //   });
+  // }, [file]);
 
   const updateToggleLike = (cache, result) => {
     const {
@@ -109,11 +115,19 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
           <Username>{user.username}</Username>
         </Header>
       </TouchableOpacity>
+      {/* <File
+        resizeMode="contain"
+        style={{
+          width: width,
+          height: imageHeight,
+        }}
+        source={{ uri: file }}
+      /> */}
       <File
         resizeMode="contain"
         style={{
-          width: width - 2,
-          height: imageHeight,
+          width: width,
+          padding: 0,
         }}
         source={{ uri: file }}
       />

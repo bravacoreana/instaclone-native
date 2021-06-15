@@ -41,23 +41,19 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          seeFeed: offsetLimitPagination(),
-          // seeFeed: {
-          //   keyArgs: false, // 아폴로가 seeFeed쿼리를 args(offset) 에 따라 구별하는 걸 허락하지 않음
-          //   merge(existing = [], incoming = []) {
-          //     return [...existing, ...incoming];
-          //   },
-          // },
-        },
+export const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        seeFeed: offsetLimitPagination(),
       },
     },
-  }),
+  },
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache,
 });
 
 export default client;
