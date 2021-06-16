@@ -66,7 +66,7 @@ const FeedContainer = styled.View`
   padding-top: 5px;
 `;
 
-function Photo({ id, user, caption, file, isLiked, likes }) {
+function Photo({ id, user, caption, file, isLiked, likes, fullView }) {
   const navigation = useNavigation();
   const { width, height, scale } = useWindowDimensions();
   // const [imageHeight, setImageHeight] = useState(height - 400);
@@ -183,7 +183,7 @@ Photo.propTypes = {
   file: PropTypes.string.isRequired,
   isLiked: PropTypes.bool.isRequired,
   likes: PropTypes.number.isRequired,
-  commentNumber: PropTypes.number.isRequired,
+  // commentNumber: PropTypes.number.isRequired,
 };
 
 export default Photo;

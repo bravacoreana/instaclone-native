@@ -57,7 +57,6 @@ const client = new ApolloClient({
 });
 
 export default client;
-
 // 휴대폰에서 테스트한다면 ip 주소 공유
 // 1. 로컬 터미널에서 명령에 따라 public IP 가져오기 -> 업데이트 해야 할 수 있음
 // 2. ngrok (free, unlimited) / localtunnel

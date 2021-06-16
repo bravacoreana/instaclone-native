@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
+import useMe from "../hooks/useMe";
 
-export default function MyProfile() {
+export default function MyProfile({ navigation }) {
+  const { data } = useMe();
+  useEffect(() => {
+    navigation.setOptions({
+      title: data?.me?.username,
+    });
+  }, []);
   return (
     <View
       style={{
