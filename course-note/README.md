@@ -1,3 +1,5 @@
+expo 
+
 - [엑스포란 (what is expo)](#0_expo.md)
 - [엑스포 셋업 (expo set up)](#1_set-up.md)
 - [app.json 간단 설명 (app.json description)](#2_app.json-desc.md)
