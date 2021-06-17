@@ -57,7 +57,7 @@ export default function CreateAccount({ navigation }) {
         placeholder="Password"
         secureTextEntry
         returnKeyType="done"
-        lastOne={true}
+        lastOne={true} //prop으로 마진 줌
         placeholderTextColor={"rgba(255, 255, 255, 0.8)"}
         onChangeText={(text) => setValue("password", text)}
         onPress={handleSubmit(onValid)} // 마지막 input
@@ -65,7 +65,7 @@ export default function CreateAccount({ navigation }) {
       <AuthButton
         text="Create Account"
         disabled={false}
-        // loading={true}
+        // loading={true} // ActivityIndicator을 이용하기 위한 prop
         onPress={handleSubmit(onValid)}
       />
     </AuthLayout>
@@ -75,7 +75,11 @@ export default function CreateAccount({ navigation }) {
 
 ### 폼 레이아웃
 
+- 여전히 인풋에 타이핑 할 수 없음 -> touchable
+
 ```js
+// AuthLayout.js
+
 import React from "react";
 import styled from "styled-components/native";
 import {
@@ -124,10 +128,39 @@ export default function DismissKeyboard({ children }) {
     <TouchableWithoutFeedback
       style={{ flex: 1 }}
       onPress={() => dismissKeyboard()}
-      disabled={Platform.OS === "web"}
+      disabled={Platform.OS === "web"} // 웹에서 input 입력 안되는 문제 해결
     >
       {children}
     </TouchableWithoutFeedback>
+  );
+}
+```
+
+### 폼 버튼
+
+```js
+import React from "react";
+import { ActivityIndicator } from "react-native";
+import styled from "styled-components/native";
+import { colors } from "../../colors";
+
+const Button = styled.TouchableOpacity`
+  // ...
+  // 폼이 조건을 만족하지 못할 때 가시적으로 보여줌
+  opacity: ${(props) => (props.disabled ? "0.5" : "1")};
+`;
+
+const ButtonText = styled.Text``;
+
+export default function AuthButton({ onPress, disabled, text, loading }) {
+  return (
+    <Button disabled={disabled} onPress={onPress}>
+      {loading ? (
+        <ActivityIndicator color="#fff" /> // 로딩을 보여줌
+      ) : (
+        <ButtonText>{text}</ButtonText>
+      )}
+    </Button>
   );
 }
 ```
