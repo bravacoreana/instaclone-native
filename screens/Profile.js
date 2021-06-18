@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 
 export default function Profile({ navigation, route }) {
-  console.log(navigation, route);
   useEffect(() => {
     if (route?.params?.username) {
       navigation.setOptions({
