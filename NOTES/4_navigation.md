@@ -1,6 +1,6 @@
 ### 네비게이션을 만드는 방법 중 가장 괜찮은 방법: 리액트 네비게이션(expo 팀이 만듦)
 
-- 리액트 네비게이션: `stack`, `tabs`, `drawer`
+- 리액트 네비게이션의 종류: `stack`, `tabs`, `drawer`
   - https://reactnavigation.org/docs/getting-started
   - https://reactnavigation.org/docs/hello-react-navigation
 

@@ -23,6 +23,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // 언제나 false로 시작
 export const isLoggedInVar = makeVar(false);
 
+// 유저의 토큰을 저장해 앱에 재접속시 로그인을 유지시키기 위함
 export const logUserIn = async (token) => {
   // 방법1. item을 하나만 보내는 경우
   await AsyncStorage.setItem([["token", JSON.stringify(token)]]);
@@ -34,8 +35,15 @@ export const logUserIn = async (token) => {
   ]);
 
   isLoggedInVar(true);
+  tokenVar(token);
 };
 ```
+
+- `logUserIn`의 역할
+  - `AsyncStorage`: Promise에 기반 -> 바로 일어나지 않음
+  - 웹에서는 `makeVar(localStorage...)` 로 했지만 네이티브의 경우는 다름: 항상 false 로 시작
+  - 로그인 시, `isLoggedInVar`을 true로 바꾸고 `tokenVar`을 이용해 _토큰을 reactive variable에 저장_
+    - 매번 await, AsyncStorage, getItem 하는 것보다 빠르고 쉽게 접근 가능 (목적: 토큰을 백엔드로 보내고 싶을 때 매번 토큰에 접근해 그 토큰을 request 헤더에 넣어야 함!)
 
 ```js
 // logIn.js
@@ -52,9 +60,11 @@ const onCompleted = async (data) => {
 };
 ```
 
-3. 불러오기 - `AppLoading` 활용!
+1. 불러오기 - `AppLoading` 활용!
 
 ```js
+// App.js
+
 import AppLoading from "expo-app-loading";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -81,7 +91,7 @@ export default function App() {
   };
 
   const preload = async () => {
-    // 2. 토큰 값 여부를 확인 - getItem()
+    // 2. 토큰 값 여부를 확인 - getItem(): async-await를 써서 preloadAssets() 하기 전에 토큰을 얻어오도록 함
     const token = await AsyncStorage.getItem("token");
 
     if (token) {
@@ -94,6 +104,9 @@ export default function App() {
       */
     }
     return preloadAssets(); // 3. 필요한 것들을 로드함 (폰트, 이미지..)
+    // preload는 프로미스를 리턴해야 함!
+    // 프로미스 리턴 전 AsyncStorage로부터 토큰을 얻어 옴
+    // 로딩이 끝나지도 전에 state를 여기서 설정할 수 있다는 것이 리액트의 장점
   };
 
   if (loading) {

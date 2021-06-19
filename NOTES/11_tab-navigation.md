@@ -79,3 +79,7 @@ export default function App() {
   )
 }
 ```
+
+---
+
+[tab navigation 2](./15_tab-navigation2.md)
