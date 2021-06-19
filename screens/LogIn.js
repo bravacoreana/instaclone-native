@@ -2,7 +2,7 @@ import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { isLoggedInVar, logUserIn } from "../apollo";
+import { isLoggedInVar, logUserIn, logUserOut } from "../apollo";
 import { TextInput } from "../components/auth/AuthCommon";
 import AuthLayout from "../components/auth/AuthLayout";
 import AuthButton from "../components/auth/AuthButton";
@@ -43,6 +43,7 @@ export default function LogIn({ route: { params } }) {
   };
 
   const onValid = (data) => {
+    console.log(data);
     if (!loading) {
       logInMutation({
         variables: {

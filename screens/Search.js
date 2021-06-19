@@ -44,7 +44,7 @@ const Input = styled.TextInput`
 `;
 
 export default function Search({ navigation }) {
-  const numColumns = 3;
+  const numColumns = 4;
   const { width } = useWindowDimensions();
   const { setValue, register, watch, handleSubmit } = useForm();
   const [startQueryFn, { loading, data, called }] = useLazyQuery(SEARCH_PHOTOS);
