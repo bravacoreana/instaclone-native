@@ -9,6 +9,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { colors } from "../colors";
+import { StatusBar } from "expo-status-bar";
 
 const Container = styled.View`
   flex: 1;
@@ -73,7 +74,13 @@ export default function SelectPhoto({ navigation }) {
   }, []);
 
   const HeaderRight = () => (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate("UploadPhotoForm", {
+          file: selectedPhoto,
+        })
+      }
+    >
       <HeaderRightText>Next</HeaderRightText>
     </TouchableOpacity>
   );
@@ -81,7 +88,7 @@ export default function SelectPhoto({ navigation }) {
     navigation.setOptions({
       headerRight: HeaderRight,
     });
-  });
+  }, [selectedPhoto]);
 
   const numColumns = 4;
   const { width } = useWindowDimensions();
@@ -108,6 +115,7 @@ export default function SelectPhoto({ navigation }) {
 
   return (
     <Container>
+      <StatusBar hidden={false} />
       <Top>
         {selectedPhoto !== "" ? (
           <Image

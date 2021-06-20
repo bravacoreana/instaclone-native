@@ -6,6 +6,7 @@ import styled from "styled-components/native";
 import Slider from "@react-native-community/slider";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
+import { useIsFocused } from "@react-navigation/core";
 
 const Container = styled.View`
   flex: 1;
@@ -24,11 +25,12 @@ const ButtonsContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  padding-bottom: 20px;
 `;
 
 const TakePhotoBtn = styled.TouchableOpacity`
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 50px;
   border: 1px solid white;
@@ -64,7 +66,7 @@ export default function TakePhoto({ navigation }) {
   const [ok, setOk] = useState(false);
   const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
   const [zoom, setZoom] = useState(0);
-  const [cameraType, setCameraType] = useState(Camera.Constants.Type.front);
+  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
 
   const getPermissions = async () => {
     const { granted } = await Camera.requestPermissionsAsync();
@@ -116,7 +118,9 @@ export default function TakePhoto({ navigation }) {
     if (save) {
       await MediaLibrary.saveToLibraryAsync(takenPhoto);
     }
-    console.log("will upload taken photo", takenPhoto);
+    navigation.navigate("UploadPhotoForm", {
+      file: takenPhoto,
+    });
   };
 
   const onUpload = () => {
@@ -137,10 +141,11 @@ export default function TakePhoto({ navigation }) {
     ]);
   };
   const onDismiss = () => setTakenPhoto("");
+  const isFocused = useIsFocused();
 
   return (
     <Container>
-      <StatusBar hidden={true} />
+      {isFocused ? <StatusBar hidden={true} /> : null}
       {takenPhoto === "" ? (
         <Camera
           type={cameraType}
@@ -161,7 +166,7 @@ export default function TakePhoto({ navigation }) {
         <Actions>
           <SliderContainer>
             <Slider
-              style={{ width: 200, height: 40 }}
+              style={{ width: 200, height: 20 }}
               minimumValue={0}
               maximumValue={0.5}
               minimumTrackTintColor="#fff"
@@ -172,7 +177,7 @@ export default function TakePhoto({ navigation }) {
           <ButtonsContainer>
             <TouchableOpacity onPress={onFlashChanged}>
               <Ionicons
-                size={36}
+                size={30}
                 color="white"
                 name={
                   flashMode === Camera.Constants.FlashMode.off
