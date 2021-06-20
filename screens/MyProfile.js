@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { logUserOut } from "../apollo";
 import useMe from "../hooks/useMe";
 
 export default function MyProfile({ navigation }) {
@@ -19,6 +20,11 @@ export default function MyProfile({ navigation }) {
       }}
     >
       <Text style={{ color: "white" }}>My Profile</Text>
+      <TouchableOpacity onPress={logUserOut}>
+        <View style={{ color: "white" }}>
+          <Text style={{ color: "white" }}>Log out</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
